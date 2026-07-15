@@ -68,3 +68,4 @@ urllib3==2.7.0
 uvicorn==0.24.0
 Werkzeug==3.0.6
 zipp==4.1.0
+mangum
