@@ -1,10 +1,10 @@
-# frontend/app.py
 """
 AI Automation Platform - Simple HTML Dashboard
 """
 
 from flask import Flask, render_template_string, request, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -211,7 +211,7 @@ resultDiv.textContent = 'Running...';
 resultDiv.className = 'loading';
 
 try {
-const response = await fetch('http://localhost:8000/api/automate', {
+const response = await fetch('https://ai-automation-backend-2njj.onrender.com/api/automate', {
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ task: task, context: 'User request' })
@@ -235,4 +235,5 @@ def index():
     return render_template_string(HTML_TEMPLATE)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8050, host='127.0.0.1')
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
