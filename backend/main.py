@@ -15,32 +15,41 @@ allow_headers=["*"],
 
 # Request model for your automation endpoint
 class AutomateRequest(BaseModel):
-    task: str
-    # Add any other fields your frontend sends here
+	task: str
+	# Add any other fields your frontend sends here
 
 # 2. Basic Health Check
 @app.get("/")
 async def root():
-    return {"status": "online", "message": "Backend is live on Vercel!"}
+	return {"status": "online", "message": "Backend is live on Vercel!"}
 
-# 3. The New Stats Endpoint (Fixes the 404 and the .map() crash)
+# 3. The UPDATED Stats Endpoint (Perfectly matches your React frontend)
 @app.get("/api/stats")
 async def get_stats():
-    # Returns an array of data so your React frontend can .map() over it to draw the chart
-    return [
-        {"name": "Mon", "requests": 4000, "latency": 200},
-        {"name": "Tue", "requests": 3000, "latency": 150},
-        {"name": "Wed", "requests": 2000, "latency": 400},
-        {"name": "Thu", "requests": 2780, "latency": 350},
-        {"name": "Fri", "requests": 1890, "latency": 220},
-    ]
+	return {
+		"performanceData": [
+			{"name": "Mon", "requests": 4000, "latency": 240, "errors": 24},
+			{"name": "Tue", "requests": 3000, "latency": 139, "errors": 13},
+			{"name": "Wed", "requests": 2000, "latency": 980, "errors": 45},
+			{"name": "Thu", "requests": 2780, "latency": 390, "errors": 28},
+			{"name": "Fri", "requests": 3100, "latency": 210, "errors": 18}
+		],
+		"modelUsageData": [
+			{"name": "Claude 3.5 Sonnet", "value": 75},
+			{"name": "Claude 3 Opus", "value": 25}
+		],
+		"recentActivity": [
+			{"id": 1, "task": "Backend Connected!", "status": "success", "time": "Just now", "model": "System"}
+		],
+		"topWorkflows": [
+			{"name": "Lead Generation", "calls": "1.2k", "success": "99%", "trend": "+5%"}
+		]
+	}
 
 # 4. Your Automation Endpoint
 @app.post("/api/automate")
 async def run_automation(request: AutomateRequest):
-    # Note: If you had specific Python logic here for your platform,
-    # you can paste it back inside this function!
-    return {
-        "status": "success",
-        "message": f"Successfully received task: {request.task}"
-    }
+	return {
+		"status": "success",
+		"message": f"Successfully received task: {request.task}"
+	}
