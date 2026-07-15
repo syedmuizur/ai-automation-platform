@@ -211,7 +211,7 @@ resultDiv.textContent = 'Running...';
 resultDiv.className = 'loading';
 
 try {
-const response = await fetch('https://ai-automation-backend-2njj.onrender.com/api/automate', {
+const response = await fetch('https://ai-automation-platform-six.vercel.app/api/automate', {
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ task: task, context: 'User request' })
